@@ -35,16 +35,18 @@ const FileUploader = () => {
     });
   };
 
-  const cleanPhoneNumber = (phoneNumber) => {
-    const cleanedInitialChars = phoneNumber.replace(/['\s]/g, "");
-    const cleanedPrefix = cleanedInitialChars.replace(/^(\+54|54)?/, "");
-    const cleanedNumber = cleanedPrefix.replace(/\s/g, "").replace(/-/g, "");
+  const cleanPhoneNumber = async (phoneNumber) => {
+    const cleanedInitialChars = await phoneNumber.replace(/['\s]/g, "");
+    const cleanedPrefix = await cleanedInitialChars.replace(/^(\+54|54)?/, "");
+    const cleanedNumber = await cleanedPrefix
+      .replace(/\s/g, "")
+      .replace(/-/g, "");
     return cleanedNumber;
   };
 
-  const cleanPostalCode = (postalCode) => {
+  const cleanPostalCode = async (postalCode) => {
     // Eliminar letras y comillas simples del código postal
-    const cleanedPostalCode = postalCode.replace(/[a-zA-Z'']/g, "");
+    const cleanedPostalCode = await postalCode.replace(/[a-zA-Z'']/g, "");
     return cleanedPostalCode;
   };
 
@@ -61,50 +63,54 @@ const FileUploader = () => {
       .replace(/ü/gi, "u"); // Reemplazar ü por u
   };
 
-  const processData = (data) => {
+  const processData = async (data) => {
     // Aquí puedes realizar el procesamiento de datos necesario
     // Por ejemplo, cambiar el formato de columnas, agregar o quitar datos, etc.
 
     // Mapeo de columnas
-    const newData = data.map((item) => {
-      const cleanedPhoneNumber = cleanPhoneNumber(item["Shipping Phone"]);
+    const newData = await Promise.all(
+      data.map(async (item) => {
+        const cleanedPhoneNumber = cleanPhoneNumber(item["Shipping Phone"]);
+        const cleanedCodpostal = cleanPostalCode(item["Shipping Zip"]);
+        const shippingCity = removeAccentsAndSpecialChars(
+          item["Shipping City"]
+        );
+        const shippingAddress = removeAccentsAndSpecialChars(
+          item["Shipping Address1"]
+        );
+        const shippingName = removeAccentsAndSpecialChars(
+          item["Shipping Name"]
+        );
 
-      const cleanedCodpostal = cleanPostalCode(item["Shipping Zip"]);
-
-      const shippingCity = removeAccentsAndSpecialChars(item["Shipping City"]);
-      const shippingAddress = removeAccentsAndSpecialChars(
-        item["Shipping Address1"]
-      );
-      const shippingName = removeAccentsAndSpecialChars(item["Shipping Name"]);
-
-      return {
-        "tipo_producto(obligatorio)": "CP",
-        "largo(obligatorio en CM)": "",
-        "ancho(obligatorio en CM)": "",
-        "altura(obligatorio en CM)": "",
-        "peso(obligatorio en KG)": "",
-        "valor_del_contenido(obligatorio en pesos argentinos)": "",
-        "provincia_destino(obligatorio)": item["Shipping Province"],
-        "sucursal_destino(obligatorio solo en caso de no ingresar localidad de destino)":
-          "",
-        "localidad_destino(obligatorio solo en caso de no ingresar sucursal de destino)":
-          shippingCity,
-        "calle_destino(obligatorio solo en caso de no ingresar sucursal de destino)":
-          shippingAddress,
-        "altura_destino(obligatorio solo en caso de no ingresar sucursal de destino)":
-          "",
-        "piso(opcional solo en caso de no ingresar sucursal de destino)": "",
-        "dpto(opcional solo en caso de no ingresar sucursal de destino)": "",
-        "codpostal_destino(obligatorio solo en caso de no ingresar sucursal de destino)":
-          cleanedCodpostal,
-        "destino_nombre(obligatorio)": shippingName,
-        "destino_email(obligatorio, debe ser un email valido)": item["Email"],
-        "cod_area_tel(opcional)": "",
-        "tel(opcional)": "",
-        "cod_area_cel(obligatorio)": "54",
-        "cel(obligatorio)": cleanedPhoneNumber,
-      };
-    });
+        return {
+          "tipo_producto(obligatorio)": "CP",
+          "largo(obligatorio en CM)": "",
+          "ancho(obligatorio en CM)": "",
+          "altura(obligatorio en CM)": "",
+          "peso(obligatorio en KG)": "",
+          "valor_del_contenido(obligatorio en pesos argentinos)": "",
+          "provincia_destino(obligatorio)": item["Shipping Province"],
+          "sucursal_destino(obligatorio solo en caso de no ingresar localidad de destino)":
+            "",
+          "localidad_destino(obligatorio solo en caso de no ingresar sucursal de destino)":
+            shippingCity,
+          "calle_destino(obligatorio solo en caso de no ingresar sucursal de destino)":
+            shippingAddress,
+          "altura_destino(obligatorio solo en caso de no ingresar sucursal de destino)":
+            "",
+          "piso(opcional solo en caso de no ingresar sucursal de destino)": "",
+          "dpto(opcional solo en caso de no ingresar sucursal de destino)": "",
+          "codpostal_destino(obligatorio solo en caso de no ingresar sucursal de destino)":
+            cleanedCodpostal,
+          "destino_nombre(obligatorio)": shippingName,
+          "destino_email(obligatorio, debe ser un email valido)": item["Email"],
+          "cod_area_tel(opcional)": "",
+          "tel(opcional)": "",
+          "cod_area_cel(obligatorio)": "54",
+          "cel(obligatorio)": cleanedPhoneNumber,
+        };
+      })
+    );
 
     // Crear un nuevo libro de trabajo (workbook)
     const workbook = XLSX.utils.book_new();
@@ -160,7 +166,6 @@ const FileUploader = () => {
           </a>
           .
         </p>
-        <script src="https://unpkg.com/flowbite@1.4.0/dist/flowbite.js"></script>
       </div>
     </div>
   );
