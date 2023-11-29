@@ -63,54 +63,54 @@ const FileUploader = () => {
       .replace(/ü/gi, "u"); // Reemplazar ü por u
   };
 
-  const processData = async (data) => {
+  const processData = (data) => {
     // Aquí puedes realizar el procesamiento de datos necesario
     // Por ejemplo, cambiar el formato de columnas, agregar o quitar datos, etc.
 
     // Mapeo de columnas
-    const newData = await Promise.all(
-      data.map(async (item) => {
-        const cleanedPhoneNumber = cleanPhoneNumber(item["Shipping Phone"]);
-        const cleanedCodpostal = cleanPostalCode(item["Shipping Zip"]);
-        const shippingCity = removeAccentsAndSpecialChars(
-          item["Shipping City"]
-        );
-        const shippingAddress = removeAccentsAndSpecialChars(
-          item["Shipping Address1"]
-        );
-        const shippingName = removeAccentsAndSpecialChars(
-          item["Shipping Name"]
-        );
+    const newData = data.map(async (item) => {
+      const cleanedPhoneNumber = await cleanPhoneNumber(item["Shipping Phone"]);
 
-        return {
-          "tipo_producto(obligatorio)": "CP",
-          "largo(obligatorio en CM)": "",
-          "ancho(obligatorio en CM)": "",
-          "altura(obligatorio en CM)": "",
-          "peso(obligatorio en KG)": "",
-          "valor_del_contenido(obligatorio en pesos argentinos)": "",
-          "provincia_destino(obligatorio)": item["Shipping Province"],
-          "sucursal_destino(obligatorio solo en caso de no ingresar localidad de destino)":
-            "",
-          "localidad_destino(obligatorio solo en caso de no ingresar sucursal de destino)":
-            shippingCity,
-          "calle_destino(obligatorio solo en caso de no ingresar sucursal de destino)":
-            shippingAddress,
-          "altura_destino(obligatorio solo en caso de no ingresar sucursal de destino)":
-            "",
-          "piso(opcional solo en caso de no ingresar sucursal de destino)": "",
-          "dpto(opcional solo en caso de no ingresar sucursal de destino)": "",
-          "codpostal_destino(obligatorio solo en caso de no ingresar sucursal de destino)":
-            cleanedCodpostal,
-          "destino_nombre(obligatorio)": shippingName,
-          "destino_email(obligatorio, debe ser un email valido)": item["Email"],
-          "cod_area_tel(opcional)": "",
-          "tel(opcional)": "",
-          "cod_area_cel(obligatorio)": "54",
-          "cel(obligatorio)": cleanedPhoneNumber,
-        };
-      })
-    );
+      const cleanedCodpostal = await cleanPostalCode(item["Shipping Zip"]);
+
+      const shippingCity = await removeAccentsAndSpecialChars(
+        item["Shipping City"]
+      );
+      const shippingAddress = await removeAccentsAndSpecialChars(
+        item["Shipping Address1"]
+      );
+      const shippingName = await removeAccentsAndSpecialChars(
+        item["Shipping Name"]
+      );
+
+      return {
+        "tipo_producto(obligatorio)": "CP",
+        "largo(obligatorio en CM)": "",
+        "ancho(obligatorio en CM)": "",
+        "altura(obligatorio en CM)": "",
+        "peso(obligatorio en KG)": "",
+        "valor_del_contenido(obligatorio en pesos argentinos)": "",
+        "provincia_destino(obligatorio)": item["Shipping Province"],
+        "sucursal_destino(obligatorio solo en caso de no ingresar localidad de destino)":
+          "",
+        "localidad_destino(obligatorio solo en caso de no ingresar sucursal de destino)":
+          shippingCity,
+        "calle_destino(obligatorio solo en caso de no ingresar sucursal de destino)":
+          shippingAddress,
+        "altura_destino(obligatorio solo en caso de no ingresar sucursal de destino)":
+          "",
+        "piso(opcional solo en caso de no ingresar sucursal de destino)": "",
+        "dpto(opcional solo en caso de no ingresar sucursal de destino)": "",
+        "codpostal_destino(obligatorio solo en caso de no ingresar sucursal de destino)":
+          cleanedCodpostal,
+        "destino_nombre(obligatorio)": shippingName,
+        "destino_email(obligatorio, debe ser un email valido)": item["Email"],
+        "cod_area_tel(opcional)": "",
+        "tel(opcional)": "",
+        "cod_area_cel(obligatorio)": "54",
+        "cel(obligatorio)": cleanedPhoneNumber,
+      };
+    });
 
     // Crear un nuevo libro de trabajo (workbook)
     const workbook = XLSX.utils.book_new();
