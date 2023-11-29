@@ -38,15 +38,25 @@ const FileUploader = () => {
   const cleanPhoneNumber = async (phoneNumber) => {
     const cleanedInitialChars = await phoneNumber.replace(/['\s]/g, "");
     const cleanedPrefix = await cleanedInitialChars.replace(/^(\+54|54)?/, "");
-    const cleanedNumber = await cleanedPrefix
+    let cleanedNumber = await cleanedPrefix
       .replace(/\s/g, "")
       .replace(/-/g, "");
+
+    if (!isNaN(cleanedNumber)) {
+      cleanedNumber = parseInt(cleanedNumber);
+    }
+
     return cleanedNumber;
   };
 
   const cleanPostalCode = async (postalCode) => {
     // Eliminar letras y comillas simples del código postal
-    const cleanedPostalCode = await postalCode.replace(/[a-zA-Z'']/g, "");
+    let cleanedPostalCode = await postalCode.replace(/[a-zA-Z'']/g, "");
+
+    if (!isNaN(cleanedPostalCode)) {
+      cleanedPostalCode = parseInt(cleanedPostalCode);
+    }
+
     return cleanedPostalCode;
   };
 
@@ -92,6 +102,9 @@ const FileUploader = () => {
         if (match) {
           street = match[1].trim();
           height = match[2].trim();
+          if (!isNaN(height)) {
+            height = parseInt(height);
+          }
         } else {
         }
 
@@ -120,7 +133,7 @@ const FileUploader = () => {
           "destino_email(obligatorio, debe ser un email valido)": item["Email"],
           "cod_area_tel(opcional)": "",
           "tel(opcional)": "",
-          "cod_area_cel(obligatorio)": "54",
+          "cod_area_cel(obligatorio)": 54,
           "cel(obligatorio)": cleanedPhoneNumber,
         };
       })
