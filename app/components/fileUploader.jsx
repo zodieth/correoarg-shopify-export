@@ -66,17 +66,34 @@ const FileUploader = () => {
   const processData = async (data) => {
     const newData = await Promise.all(
       data.map(async (item) => {
-        const cleanedPhoneNumber = cleanPhoneNumber(item["Shipping Phone"]);
-        const cleanedCodpostal = cleanPostalCode(item["Shipping Zip"]);
+        const cleanedPhoneNumber = await cleanPhoneNumber(
+          item["Shipping Phone"]
+        );
+        const cleanedCodpostal = await cleanPostalCode(item["Shipping Zip"]);
         const shippingCity = removeAccentsAndSpecialChars(
           item["Shipping City"]
         );
-        const shippingAddress = removeAccentsAndSpecialChars(
+        const shippingAddress = await removeAccentsAndSpecialChars(
           item["Shipping Address1"]
         );
-        const shippingName = removeAccentsAndSpecialChars(
+
+        const shippingAddress2 = await removeAccentsAndSpecialChars(
+          item["Shipping Address2"]
+        );
+        const shippingName = await removeAccentsAndSpecialChars(
           item["Shipping Name"]
         );
+
+        const match = shippingAddress.match(/^(.*?)(\d+)$/);
+
+        let street = shippingAddress;
+        let height = "";
+
+        if (match) {
+          street = match[1].trim();
+          height = match[2].trim();
+        } else {
+        }
 
         return {
           "tipo_producto(obligatorio)": "CP",
@@ -91,10 +108,11 @@ const FileUploader = () => {
           "localidad_destino(obligatorio solo en caso de no ingresar sucursal de destino)":
             shippingCity,
           "calle_destino(obligatorio solo en caso de no ingresar sucursal de destino)":
-            shippingAddress,
+            street,
           "altura_destino(obligatorio solo en caso de no ingresar sucursal de destino)":
-            "",
-          "piso(opcional solo en caso de no ingresar sucursal de destino)": "",
+            height,
+          "piso(opcional solo en caso de no ingresar sucursal de destino)":
+            shippingAddress2,
           "dpto(opcional solo en caso de no ingresar sucursal de destino)": "",
           "codpostal_destino(obligatorio solo en caso de no ingresar sucursal de destino)":
             cleanedCodpostal,
