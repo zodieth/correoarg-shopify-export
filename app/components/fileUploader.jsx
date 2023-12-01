@@ -42,6 +42,14 @@ const FileUploader = () => {
       .replace(/\s/g, "")
       .replace(/-/g, "");
 
+    while (cleanedNumber.toString().length > 10) {
+      // Convertimos el número a cadena para manipularlo como texto
+      let numStr = cleanedNumber.toString();
+
+      // Eliminamos el primer dígito
+      cleanedNumber = parseInt(numStr.slice(1));
+    }
+
     if (!isNaN(cleanedNumber)) {
       cleanedNumber = parseInt(cleanedNumber);
     }
