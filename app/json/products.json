@@ -1,0 +1,60 @@
+{
+  "products": [
+    {
+      "name": "LAMPARA ANTIMOSQUITOS PERLA™",
+      "alto": 12,
+      "ancho": 12,
+      "largo": 22,
+      "peso": 0.3,
+      "valor": 5000
+    },
+    {
+      "name": "KIT LIMPIEZA PERLA 360™",
+      "alto": 38,
+      "ancho": 23,
+      "largo": 20,
+      "peso": 1.1,
+      "valor": 10000
+    },
+    {
+      "name": "MOPA AUTOESCURRIBLE PREMIUM™",
+      "alto": 38,
+      "ancho": 23,
+      "largo": 20,
+      "peso": 0.6,
+      "valor": 11400
+    },
+    {
+      "name": "PIZARRA MÁGICA PERLA ™",
+      "alto": 15,
+      "ancho": 1,
+      "largo": 23,
+      "peso": 0.1,
+      "valor": 4000
+    },
+    {
+      "name": "MAGNETIC CLEANER PERLA™- TUS VIDRIOS LIMPIOS",
+      "alto": 7,
+      "ancho": 7,
+      "largo": 13,
+      "peso": 0.5,
+      "valor": 4000
+    },
+    {
+      "name": "MOP PRO PERLA™",
+      "alto": 26,
+      "ancho": 5,
+      "largo": 5,
+      "peso": 0.2,
+      "valor": 4000
+    },
+    {
+      "name": "COMBO LIMPIEZA PERLA 4 EN 1",
+      "alto": 39,
+      "ancho": 20,
+      "largo": 30,
+      "peso": 2.2,
+      "valor": 4000
+    }
+  ]
+}

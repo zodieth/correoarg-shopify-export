@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Papa from "papaparse";
 import * as XLSX from "xlsx";
+import products from "../json/products.json";
 
 const FileUploader = () => {
   const [fileData, setFileData] = useState(null);
@@ -81,6 +82,32 @@ const FileUploader = () => {
       .replace(/ü/gi, "u"); // Reemplazar ü por u
   };
 
+  const weightHeight = async (item) => {
+    for (let i = 0; i < products.products.length; i++) {
+      if (item["Lineitem name"] === products.products[i].name) {
+        if (item["Lineitem quantity"] > 1) {
+          return {
+            peso: products.products[i].peso * item["Lineitem quantity"],
+            largo: products.products[i].largo * item["Lineitem quantity"],
+            ancho: products.products[i].ancho,
+            alto: products.products[i].alto,
+            valor: products.products[i].valor,
+          };
+        } else {
+          return {
+            peso: products.products[i].peso,
+            largo: products.products[i].largo,
+            ancho: products.products[i].ancho,
+            alto: products.products[i].alto,
+            valor: products.products[i].valor,
+          };
+        }
+      }
+
+      return;
+    }
+  };
+
   const processData = async (data) => {
     const newData = await Promise.all(
       data.map(async (item) => {
@@ -116,13 +143,17 @@ const FileUploader = () => {
         } else {
         }
 
+        const pesaje = await weightHeight(item);
+
         return {
           "tipo_producto(obligatorio)": "CP",
-          "largo(obligatorio en CM)": "",
-          "ancho(obligatorio en CM)": "",
-          "altura(obligatorio en CM)": "",
-          "peso(obligatorio en KG)": "",
-          "valor_del_contenido(obligatorio en pesos argentinos)": "",
+          "largo(obligatorio en CM)": pesaje?.largo ? pesaje?.largo : "",
+          "ancho(obligatorio en CM)": pesaje?.ancho ? pesaje?.ancho : "",
+          "altura(obligatorio en CM)": pesaje?.alto ? pesaje?.alto : "",
+          "peso(obligatorio en KG)": pesaje?.peso ? pesaje?.peso : "",
+          "valor_del_contenido(obligatorio en pesos argentinos)": pesaje?.valor
+            ? pesaje?.valor
+            : "",
           "provincia_destino(obligatorio)": item["Shipping Province"],
           "sucursal_destino(obligatorio solo en caso de no ingresar localidad de destino)":
             "",
@@ -147,8 +178,21 @@ const FileUploader = () => {
       })
     );
 
+    function formatearNumeros(datos) {
+      return datos.map((item) => {
+        if (item["peso(obligatorio en KG)"]) {
+          item["peso(obligatorio en KG)"] = Number(
+            item["peso(obligatorio en KG)"]
+          ).toFixed(1); // Asegurar dos decimales
+        }
+        return item;
+      });
+    }
+
+    const newDataFormateada = formatearNumeros(newData);
+
     const workbook = XLSX.utils.book_new();
-    const worksheet = XLSX.utils.json_to_sheet(newData);
+    const worksheet = XLSX.utils.json_to_sheet(newDataFormateada);
     XLSX.utils.book_append_sheet(workbook, worksheet, "Nueva Hoja");
     XLSX.writeFile(workbook, "cargamasiva_correoargentino.xlsx");
 
@@ -163,7 +207,6 @@ const FileUploader = () => {
     const worksheet = XLSX.utils.json_to_sheet(data);
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
-    // XLSX.writeFile(workbook, "formatted_data.xlsx");
   };
 
   return (
