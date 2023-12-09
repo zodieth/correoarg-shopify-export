@@ -55,6 +55,22 @@
       "largo": 30,
       "peso": 2.2,
       "valor": 4000
+    },
+    {
+      "name": "GUIRNALDA NAVIDEÑA LED SOLAR",
+      "alto": 14,
+      "ancho": 8,
+      "largo": 8,
+      "peso": 0.2,
+      "valor": 6000
+    },
+    {
+      "name": "GIRNALDA NAVIDEÑA LED SOLAR",
+      "alto": 14,
+      "ancho": 8,
+      "largo": 8,
+      "peso": 0.2,
+      "valor": 6000
     }
   ]
 }
