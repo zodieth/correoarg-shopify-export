@@ -58,11 +58,19 @@
     },
     {
       "name": "GUIRNALDA NAVIDEÑA LED SOLAR",
-      "alto": 14,
-      "ancho": 8,
+      "alto": 12,
+      "ancho": 6,
       "largo": 8,
       "peso": 0.2,
       "valor": 6000
+    },
+    {
+      "name": "SACACORCHOS AUTOMATICO PREMIUM",
+      "alto": 24,
+      "ancho": 6,
+      "largo": 6,
+      "peso": 0.2,
+      "valor": 10000
     }
   ]
 }
