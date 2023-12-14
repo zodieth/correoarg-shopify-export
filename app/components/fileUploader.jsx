@@ -84,8 +84,10 @@ const FileUploader = () => {
 
   const weightHeight = async (item) => {
     for (let i = 0; i < products.products.length; i++) {
+      // console.log(item["Lineitem name"] === products.products[i].name);
+
       if (item["Lineitem name"] === products.products[i].name) {
-        if (item["Lineitem quantity"] > 1) {
+        if (item["Lineitem quantity"] >= 1) {
           return {
             peso: products.products[i].peso * item["Lineitem quantity"],
             largo: products.products[i].largo * item["Lineitem quantity"],
@@ -93,15 +95,16 @@ const FileUploader = () => {
             alto: products.products[i].alto,
             valor: products.products[i].valor,
           };
-        } else {
-          return {
-            peso: products.products[i].peso,
-            largo: products.products[i].largo,
-            ancho: products.products[i].ancho,
-            alto: products.products[i].alto,
-            valor: products.products[i].valor,
-          };
         }
+        //  else {
+        //   return {
+        //     peso: products.products[i].peso,
+        //     largo: products.products[i].largo,
+        //     ancho: products.products[i].ancho,
+        //     alto: products.products[i].alto,
+        //     valor: products.products[i].valor,
+        //   };
+        // }
       }
 
       return;
