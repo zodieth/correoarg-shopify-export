@@ -9,14 +9,6 @@
       "valor": 6000
     },
     {
-      "name": "LAMPARA ANTIMOSQUITOS PERLA™",
-      "alto": 12,
-      "ancho": 12,
-      "largo": 22,
-      "peso": 0.3,
-      "valor": 5000
-    },
-    {
       "name": "KIT LIMPIEZA PERLA 360™",
       "alto": 38,
       "ancho": 23,
@@ -79,6 +71,14 @@
       "largo": 21,
       "peso": 0.3,
       "valor": 27000
+    },
+    {
+      "name": "LAMPARA ANTIMOSQUITOS PERLA™",
+      "alto": 12,
+      "ancho": 12,
+      "largo": 22,
+      "peso": 0.3,
+      "valor": 5000
     }
   ]
 }
