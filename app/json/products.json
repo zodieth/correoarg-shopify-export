@@ -79,6 +79,22 @@
       "largo": 22,
       "peso": 0.3,
       "valor": 5000
+    },
+    {
+      "name": "ANTORCHA LED SOLAR (2 Unidades)",
+      "alto": 23,
+      "ancho": 8,
+      "largo": 14,
+      "peso": 0.2,
+      "valor": 5000
+    },
+    {
+      "name": "GUIRNALDA GLOBO PERLA™",
+      "alto": 16,
+      "ancho": 3,
+      "largo": 10,
+      "peso": 0.1,
+      "valor": 5000
     }
   ]
 }
