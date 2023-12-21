@@ -95,6 +95,14 @@
       "largo": 10,
       "peso": 0.1,
       "valor": 5000
+    },
+    {
+      "name": "PILETA DOG SPLASH PERLA™",
+      "alto": 20,
+      "ancho": 5,
+      "largo": 18,
+      "peso": 0.1,
+      "valor": 20000
     }
   ]
 }
