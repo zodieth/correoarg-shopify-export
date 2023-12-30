@@ -103,6 +103,14 @@
       "largo": 18,
       "peso": 0.1,
       "valor": 20000
+    },
+    {
+      "name": "Colchoneta SplashNet",
+      "alto": 1,
+      "ancho": 23,
+      "largo": 29,
+      "peso": 0.1,
+      "valor": 6000
     }
   ]
 }
