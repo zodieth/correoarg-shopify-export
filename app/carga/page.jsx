@@ -1,20 +1,20 @@
-"use client";
+// "use client";
 import React, { useState } from "react";
-import products from "../json/products";
+// import products from "../json/products";
 
-function page() {
-  const [producto, setProducto] = useState({
-    name: "",
-    alto: 0,
-    ancho: 0,
-    largo: 0,
-    peso: 0,
-    valor: 0,
-  });
+// function page() {
+//   const [producto, setProducto] = useState({
+//     name: "",
+//     alto: 0,
+//     ancho: 0,
+//     largo: 0,
+//     peso: 0,
+//     valor: 0,
+//   });
 
-  return (
-    <div className="flex flex-col items-center justify-center mt-10">
-      <div className=" flex items-center justify-center">
+return (
+  <div className="flex flex-col items-center justify-center mt-10">
+    {/* <div className=" flex items-center justify-center">
         <label className="mx-2" htmlFor="">
           Nombre
         </label>
@@ -93,9 +93,8 @@ function page() {
         >
           CARGAR
         </button>
-      </div>
-    </div>
-  );
-}
+      </div> */}
+  </div>
+);
 
 export default page;
