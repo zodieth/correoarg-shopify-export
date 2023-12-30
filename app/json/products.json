@@ -119,6 +119,14 @@
       "largo": 18,
       "peso": 0.6,
       "valor": 37000
+    },
+    {
+      "name": "AeroSphere 360°",
+      "alto": 10,
+      "ancho": 10,
+      "largo": 10,
+      "peso": 0.1,
+      "valor": 10000
     }
   ]
 }
