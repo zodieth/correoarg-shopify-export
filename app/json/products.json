@@ -111,6 +111,14 @@
       "largo": 29,
       "peso": 0.1,
       "valor": 6000
+    },
+    {
+      "name": "Auto 4*4 Sense Master",
+      "alto": 25,
+      "ancho": 8,
+      "largo": 18,
+      "peso": 0.6,
+      "valor": 37000
     }
   ]
 }
