@@ -215,10 +215,8 @@ const FileUploader = () => {
         />
 
         <p className="mt-5">
-          Con esto te ahorro 30 min de estar cargando manualmente el excel de
-          Correo Argentino y Shopify, cargá el archivo order_exports y disfrutá
-          pa,{" "}
-          <a className="text-blue-600 hover:underline" href="#" target="_blank">
+        Subir archivo orders_export.csv de shopify a excel masivo de Correo Argentino{" "}
+          <a className="text-blue-600 hover:underline" href="wa.me/5491125268518" target="_blank">
             Mateo
           </a>
           .
