@@ -118,7 +118,7 @@ const FileUploader = () => {
           item["Shipping Name"]
         );
 
-        const name = await item["Name"]
+        const id = await item["Name"]
 
         const match = shippingAddress.match(/^(.*?)(\d+)$/);
 
@@ -165,7 +165,7 @@ const FileUploader = () => {
           "tel(opcional)": "",
           "cod_area_cel(opcional)": 54,
           "cel(opcional)": cleanedPhoneNumber,
-          "numero_orden(opcional)":name|""
+          "numero_orden(opcional)":id? id :''
 
         };
       })
