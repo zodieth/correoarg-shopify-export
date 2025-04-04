@@ -220,7 +220,7 @@ const FileUploader = () => {
 
         <p className="mt-5">
         Subir archivo orders_export.csv de shopify a excel masivo de Correo Argentino{" "}
-          <a className="text-blue-600 hover:underline" href="wa.me/5491125268518" target="_blank">
+          <a className="text-blue-600 hover:underline" href="https://wa.me/5491125268518" target="_blank">
             Mateo
           </a>
           .
